@@ -8,10 +8,10 @@ import axios from 'axios'
   constructor(props) {
     super(props);
     this.state = {
-      firstName: "setfirstname",
-      lastName: "setlastName",
-      email: "setemail",
-      password: "setPassword",
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
       signup: false,
     };
     this.onChange = this.onChange.bind(this);
@@ -69,7 +69,7 @@ import axios from 'axios'
               type="text"
               placeholder="FirstName"
               name="firstName"
-              value={this.state.firstname}
+              value={this.state.firstName}
               onChange={this.onChange}
             />
           </Form.Group>
