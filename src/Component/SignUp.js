@@ -8,11 +8,11 @@ import axios from 'axios'
   constructor(props) {
     super(props);
     this.state = {
-      Firstname: "setfirstname",
-      LastName: "setlastName",
-      Email: "setemail",
-      Password: "setPassword",
-      SignUp: false,
+      firstName: "setfirstname",
+      lastName: "setlastName",
+      email: "setemail",
+      password: "setPassword",
+      signup: false,
     };
     this.onChange = this.onChange.bind(this);
     this.onsubmitForm = this.onsubmitForm.bind(this);
@@ -22,17 +22,17 @@ import axios from 'axios'
   }
   onsubmitForm = (e) => {
     e.preventDefault();
-    const { firstname, lastName, email, password } = this.state;
+    const { firstName, lastName, email, password } = this.state;
     if (
-      firstname !== "" &&
+      firstName !== "" &&
       lastName !== "" &&
       email !== "" &&
       password !== ""
     ) {
       var newUser = 
         {
-          firstname: firstname,
-          lastname: lastName,
+          firstName: firstName,
+          lastName: lastName,
           email: email,
           password: password,
         };
@@ -45,7 +45,7 @@ import axios from 'axios'
             console.log(res.data);
 
             this.setState({
-              signUp: true,
+              signup: true,
             });
 
           } else console.log(res.data);
@@ -60,7 +60,7 @@ import axios from 'axios'
         style={{ backgroundColor: "grey", width: "100%" }}
         className="justify-content-md-center"
       >
-        {this.state.signUp && <Redirect to="/loginpage" />}
+        {this.state.signup && <Redirect to="/loginpage" />}
 
         <Form onSubmit={this.onsubmitForm} style={{ width: "70%" }}>
           <Form.Group controlId="formBasicFirstName">
@@ -68,7 +68,7 @@ import axios from 'axios'
             <Form.Control
               type="text"
               placeholder="FirstName"
-              name="firstname"
+              name="firstName"
               value={this.state.firstname}
               onChange={this.onChange}
             />
@@ -77,7 +77,7 @@ import axios from 'axios'
             <Form.Label>LastName</Form.Label>
             <Form.Control
               type="text"
-              placeholder="LastName"
+              placeholder="lastName"
               name="lastName"
               value={this.state.lastName}
               onChange={this.onChange}
