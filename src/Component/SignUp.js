@@ -4,15 +4,15 @@ import { Button } from "react-bootstrap";
 import { Redirect, withRouter } from "react-router-dom";
 import axios from 'axios'
 
- class SignUp extends Component {
+class SignUp extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      Firstname: "setfirstname",
-      LastName: "setlastName",
-      Email: "setemail",
-      Password: "setPassword",
-      SignUp: false,
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      signup: false,
     };
     this.onChange = this.onChange.bind(this);
     this.onsubmitForm = this.onsubmitForm.bind(this);
@@ -22,33 +22,30 @@ import axios from 'axios'
   }
   onsubmitForm = (e) => {
     e.preventDefault();
-    const { firstname, lastName, email, password } = this.state;
+    const { firstName, lastName, email, password } = this.state;
     if (
-      firstname !== "" &&
+      firstName !== "" &&
       lastName !== "" &&
       email !== "" &&
       password !== ""
     ) {
-      var newUser = 
-        {
-          firstname: firstname,
-          lastname: lastName,
-          email: email,
-          password: password,
-        };
+      var newUser =
+      {
+        firstName: firstName,
+        lastName: lastName,
+        email: email,
+        password: password,
+      };
       axios
-        .post("http://localhost:8080/api/signup", {
-          newUser
-        })
+        .post("http://localhost:8080/api/user/signup", newUser)
         .then((res) => {
           if (res.status === 201) {
             console.log(res.data);
-
             this.setState({
-              signUp: true,
+              signup: true,
             });
-
-          } else console.log(res.data);
+          }
+          else console.log(res.data);
         })
         .catch((err) => console.log(err));
     }
@@ -57,19 +54,18 @@ import axios from 'axios'
   render() {
     return (
       <div
-        style={{ backgroundColor: "grey", width: "100%" }}
-        className="justify-content-md-center"
-      >
-        {this.state.signUp && <Redirect to="/loginpage" />}
+        style={{ backgroundColor: "silver", width: "100%" }}
+        className="justify-content-md-center">
+        {this.state.signup && <Redirect to="/loginpage" />}
 
         <Form onSubmit={this.onsubmitForm} style={{ width: "70%" }}>
           <Form.Group controlId="formBasicFirstName">
             <Form.Label>FirstName</Form.Label>
             <Form.Control
               type="text"
-              placeholder="FirstName"
-              name="firstname"
-              value={this.state.firstname}
+              placeholder="firstName"
+              name="firstName"
+              value={this.state.firstName}
               onChange={this.onChange}
             />
           </Form.Group>
@@ -77,7 +73,7 @@ import axios from 'axios'
             <Form.Label>LastName</Form.Label>
             <Form.Control
               type="text"
-              placeholder="LastName"
+              placeholder="lastName"
               name="lastName"
               value={this.state.lastName}
               onChange={this.onChange}
@@ -105,7 +101,7 @@ import axios from 'axios'
           </Form.Group>
           <Button type="submit">SignUp</Button>
           <br />
-          <Button type="primary" onClick = {() => this.props.history.push('/loginpage')}>Already have an account </Button>
+          <Button type="primary" onClick={() => this.props.history.push('/loginpage')}>Already have an account </Button>
         </Form>
       </div>
     );

@@ -10,12 +10,12 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Login, setLogin] = useState(false);
-  
+
   const submitForm = (e) => {
     e.preventDefault();
 
     axios
-      .post("http://localhost:8080/api/login", {
+      .post("http://localhost:8080/api/user/login", {
         email: email,
         password: password,
       })
@@ -33,9 +33,8 @@ const LoginPage = () => {
   };
   return (
     <div
-      style={{ backgroundColor: "wheat", width: "100%" }}
-      className="justify-content-md-center"
-    >
+      style={{ backgroundColor: "dimgrey", width: "100%" }}
+      className="justify-content-md-center" >
       {Login && <Redirect to="/dashboard" />}
 
       <Form action="" style={{ width: "70%" }} onSubmit={submitForm}>
