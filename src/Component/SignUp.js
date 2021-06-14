@@ -37,9 +37,7 @@ import axios from 'axios'
           password: password,
         };
       axios
-        .post("http://localhost:8080/api/signup", {
-          newUser
-        })
+        .post("http://localhost:8080/api/signup", newUser)
         .then((res) => {
           if (res.status === 201) {
             console.log(res.data);
