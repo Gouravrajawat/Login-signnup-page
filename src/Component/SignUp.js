@@ -29,7 +29,7 @@ class SignUp extends Component {
       email !== "" &&
       password !== ""
     ) {
-      const newUser =
+      var newUser =
       {
         firstName: firstName,
         lastName: lastName,
@@ -41,21 +41,23 @@ class SignUp extends Component {
         .then((res) => {
           if (res.status === 201) {
             console.log(res.data);
-          }
-          else console.log(res.data);
+
+            this.setState({
+              signup: true,
+            });
+
+          } else console.log(res.data);
         })
         .catch((err) => console.log(err));
     }
-    this.setState({
-      signup: true,
-    });
   };
 
   render() {
     return (
       <div
         style={{ backgroundColor: "silver", width: "100%" }}
-        className="justify-content-md-center">
+        className="justify-content-md-center"
+      >
         {this.state.signup && <Redirect to="/loginpage" />}
 
         <Form onSubmit={this.onsubmitForm} style={{ width: "70%" }}>
@@ -63,7 +65,7 @@ class SignUp extends Component {
             <Form.Label>FirstName</Form.Label>
             <Form.Control
               type="text"
-              placeholder="firstName"
+              placeholder="FirstName"
               name="firstName"
               value={this.state.firstName}
               onChange={this.onChange}
