@@ -29,7 +29,7 @@ class SignUp extends Component {
       email !== "" &&
       password !== ""
     ) {
-      var newUser =
+      const newUser =
       {
         firstName: firstName,
         lastName: lastName,
@@ -41,14 +41,14 @@ class SignUp extends Component {
         .then((res) => {
           if (res.status === 201) {
             console.log(res.data);
-            this.setState({
-              signup: true,
-            });
           }
           else console.log(res.data);
         })
         .catch((err) => console.log(err));
     }
+    this.setState({
+      signup: true,
+    });
   };
 
   render() {
