@@ -41,7 +41,6 @@ class SignUp extends Component {
         .then((res) => {
           if (res.status === 201) {
             console.log(res.data);
-
             this.setState({
               signup: true,
             });
@@ -55,12 +54,11 @@ class SignUp extends Component {
   render() {
     return (
       <div
-        style={{ backgroundColor: "silver", width: "100%" }}
-        className="justify-content-md-center"
-      >
-        {this.state.signup && <Redirect to="/loginpage" />}
+        style={{ backgroundColor: "lightgrey", width: "75%" }}
+        className="justify-content-md-center">
+        { this.state.signup && <Redirect to="/loginpage" />}
 
-        <Form onSubmit={this.onsubmitForm} style={{ width: "70%" }}>
+        <Form onSubmit={this.onsubmitForm} style={{ width: "75%" }}>
           <Form.Group controlId="formBasicFirstName">
             <Form.Label>FirstName</Form.Label>
             <Form.Control
@@ -101,11 +99,11 @@ class SignUp extends Component {
               onChange={this.onChange}
             />
           </Form.Group>
-          <Button type="submit">SignUp</Button>
+          <Button type="submit" class="btn btn-success">SignUp</Button>
           <br />
           <Button type="primary" onClick={() => this.props.history.push('/loginpage')}>Already have an account </Button>
         </Form>
-      </div>
+      </div >
     );
   }
 }

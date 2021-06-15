@@ -1,0 +1,25 @@
+.LoginPage {
+  background-color:blue;
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
+}
+.SignUp {
+  background-color:burlywood;
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
+}
+body {
+  background-color: grey;
+  color: white;
+  padding: 40px;
+  font-family: Arial;
+  text-align: center;
+}

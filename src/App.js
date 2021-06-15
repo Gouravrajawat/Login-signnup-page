@@ -1,5 +1,6 @@
 import './App.module.css'
 import './index.css'
+import './App.css'
 import React, { Component } from 'react'
 import { Route, Switch } from "react-router-dom";
 import LoginPage from "./Component/LoginPage.js"

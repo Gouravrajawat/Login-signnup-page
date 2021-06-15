@@ -1,13 +1,14 @@
 import React from 'react'
+import { Container } from 'react-bootstrap';
 
 const DashBoard = () => {
   return (
-    <div
-      style={{ backgroundColor: "lightsteelblue", width: "100%" }}>
-      <h3>"You are SuccessFully Login"</h3>
-    </div>
-
+    <Container
+      style={{ backgroundColor: "lightblue" }}>
+      <h1>You are SuccessFully Login</h1>
+      <p>Congrualtions you are Currently Logged in!!!</p>
+    </Container >
   );
 }
 
-export default DashBoard
+export default DashBoard;

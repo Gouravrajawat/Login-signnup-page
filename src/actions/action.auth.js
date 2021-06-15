@@ -12,12 +12,10 @@ export const signup = (name, email, password) => async (dispatch) => {
       'Content-Type': 'application/json',
     },
   };
-
   const body = { name, email, password };
-
   try {
     console.log(body);
-    const res = axios.post("https://localhost:8080/api/user/signup",
+    const res = axios.post("https://localhost:8080/api/user/signup", newUser,
       body,
       config
     );

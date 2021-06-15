@@ -33,7 +33,7 @@ const LoginPage = () => {
   };
   return (
     <div
-      style={{ backgroundColor: "dimgrey", width: "100%" }}
+      style={{ backgroundColor: "slategrey", width: "75%" }}
       className="justify-content-md-center" >
       {Login && <Redirect to="/dashboard" />}
 
