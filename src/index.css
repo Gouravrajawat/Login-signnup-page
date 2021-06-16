@@ -1,5 +1,16 @@
-.LoginPage {
+.LoginPage{
   background-color:blue;
+  min-height: 100%;
+  min-height: 100vh;
+  display: flex;
+  background-size: cover;
+  align-items: center;
+  justify-content: center;
+  font-family: Arial, Helvetica, sans-serif;
+  font-style: italic;
+}
+.SignUp {
+  background-color:burlywood;
   min-height: 100%;
   min-height: 100vh;
   display: flex;
@@ -8,12 +19,13 @@
   justify-content: center;
 }
 body {
-  margin: 0;
+  margin: 50px;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: grey;
 }
 
 code {
