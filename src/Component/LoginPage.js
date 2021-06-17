@@ -10,8 +10,30 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Login, setLogin] = useState(false);
+  const [err, setErr] = useState({
+    email: " ",
+    password: " ",
+  });
 
-  const submitForm = (e) => {
+  const validate = (target, value) => {
+    var newErr = "";
+    if (target === "email") {
+      var mailformat =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      if (value && !value.match(mailformat))
+        newErr = "Please enter valid email address!";
+      else if (!value) newErr = "Email required!";
+    }
+    if (target === "password") {
+      if (value && value.length < 6) newErr = "Password must be of length 6";
+      else if (!value) newErr = "Password required!";
+    }
+    setErr({ ...err, [target]: newErr });
+  };
+  const handleChange = (target) => {
+   // validate(e.target.name, e.target.value)
+  }
+const submitForm = (e) => {
     e.preventDefault();
 
     axios
@@ -29,13 +51,16 @@ const LoginPage = () => {
           setLogin(true);
         } else console.log(res.data);
       })
-      .catch((err) => console.log(err));
+      .catch((err) => alert(err));
   };
   return (
     <div
-      style={{ backgroundColor: "slategrey", width: "75%" }}
+      style={{ backgroundColor: "darkgray", width: "75%" }}
       className="justify-content-md-center" >
       {Login && <Redirect to="/dashboard" />}
+      <>
+      <h1>WelCome to our LOGIN Page</h1>
+    </>
 
       <Form action="" style={{ width: "70%" }} onSubmit={submitForm}>
         <Form.Group controlId="formBasicEmail">
@@ -57,8 +82,10 @@ const LoginPage = () => {
           />
         </Form.Group>
         <Button type="Submit">Login</Button>
-        <Link to="/login"></Link>
+        <br />
       </Form>
+      <br />
+      Don't have an account?<Link to="/">Create Account</Link>
     </div>
   );
 };

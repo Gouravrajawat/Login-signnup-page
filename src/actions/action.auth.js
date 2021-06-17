@@ -15,7 +15,7 @@ export const signup = (name, email, password) => async (dispatch) => {
   const body = { name, email, password };
   try {
     console.log(body);
-    const res = axios.post("https://localhost:8080/api/user/signup", newUser,
+    const res = axios.post("https://localhost:8080/api/user/signup",
       body,
       config
     );
