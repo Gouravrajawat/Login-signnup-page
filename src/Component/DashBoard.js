@@ -8,7 +8,7 @@ const DashBoard = () => {
       style={{ backgroundColor: "lightblue" }}>
       <h1>You are SuccessFully Login</h1>
       <p>Congrualations you are Currently Logged in!!!</p>
-      <Link to="/">Logout</Link>
+      <Link to="/loginpage">Logout</Link>
     </Container >
   );
 }

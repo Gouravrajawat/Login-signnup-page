@@ -10,6 +10,10 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Login, setLogin] = useState(false);
+  const [user, setUser] = React.useState({
+    email: "",
+    password: "",
+  });
   const [err, setErr] = useState({
     email: " ",
     password: " ",
@@ -31,8 +35,10 @@ const LoginPage = () => {
     setErr({ ...err, [target]: newErr });
   };
   const handleChange = (target) => {
-   // validate(e.target.name, e.target.value)
-  }
+    const name = target.name;
+    const value = target.value;
+    validate(name, value);
+  };
 const submitForm = (e) => {
     e.preventDefault();
 
@@ -55,7 +61,7 @@ const submitForm = (e) => {
   };
   return (
     <div
-      style={{ backgroundColor: "darkgray", width: "75%" }}
+      style={{ backgroundColor: "gainsboro", width: "75%" }}
       className="justify-content-md-center" >
       {Login && <Redirect to="/dashboard" />}
       <>

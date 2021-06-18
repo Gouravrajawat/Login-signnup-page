@@ -13,10 +13,6 @@ class SignUp extends Component {
       email: "",
       password: "",
       signup: false,
-      firstNameError: "",
-      lastNameError: "",
-      emailError: "",
-      passwordError: "",
     };
     this.onChange = this.onChange.bind(this);
     this.onsubmitForm = this.onsubmitForm.bind(this);
@@ -24,20 +20,29 @@ class SignUp extends Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
-  validate = () => {
-    // let firstNameError = "";
-    //  let lastNameError = "";
-    let emailError = "";
-    // let passwordError = "";
-    if (this.state.email.includes('@')) {
-      emailError = "Invalid email";
+  /*
+  validate = (target, value) => {
+    var newErr = "";
+    if (target === "email") {
+      var mailformat =
+        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
+      if (value && !value.match(mailformat))
+        newErr = "Please enter valid email address!";
+      else if (!value) newErr = "Email required!";
     }
-    if (emailError) {
-      this.setState({ emailError });
-      return false;
+    if (target === "password") {
+      if (value && value.length < 6) newErr = "Password must be of length 6";
+      else if (!value) newErr = "Password required!";
     }
-    return true;
-  }
+  };
+  handleChange = (target) => {
+    const name = target.name;
+    const value = target.value;
+    setUser({ ...user, [name]: value });
+    validate(name, value);
+  };
+  */
+
   onsubmitForm = (e) => {
     e.preventDefault();
     const { firstName, lastName, email, password } = this.state;
@@ -65,13 +70,14 @@ class SignUp extends Component {
 
           } else console.log(res.data);
         })
-        .catch((err) => console.log(err));
+        .catch((err) =>
+          alert(err));
     }
   };
   render() {
     return (
       <div
-        style={{ fontSize: 14, backgroundColor: "	dimgrey", width: "75%" }}
+        style={{ fontSize: 14, backgroundColor: "dimgrey", width: "75%" }}
         className="justify-content-md-center">
 
         { this.state.signup && <Redirect to="/loginpage" />}
@@ -88,6 +94,8 @@ class SignUp extends Component {
               placeholder="FirstName"
               name="firstName"
               required="required"
+              minlength="3"
+              maxlength="10"
               value={this.state.firstName}
               onChange={this.onChange}
             />
@@ -103,6 +111,8 @@ class SignUp extends Component {
               placeholder="lastName"
               name="lastName"
               required="required"
+              minlength="3"
+              maxlength="10"
               value={this.state.lastName}
               onChange={this.onChange}
             />
