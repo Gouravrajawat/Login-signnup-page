@@ -59,6 +59,7 @@ const LoginPage = () => {
           localStorage.setItem('email', res.data.email);
           localStorage.setItem(TOKEN_KEY, 'TestLogin');
 
+
           setLogin(true);
         } else console.log(res.data);
       })
@@ -67,7 +68,7 @@ const LoginPage = () => {
   };
   return (
     <div
-      style={{ backgroundColor: "darkgray", width: "75%" }}
+      style={{ fontSize: 16, backgroundColor: "gray", width: "75%", padding: "12px" }}
       className="justify-content-md-center" >
       {Login && <Redirect to="/dashboard" />}
       <h1>WelCome to our LOGIN Page</h1>

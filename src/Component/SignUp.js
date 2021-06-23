@@ -12,9 +12,7 @@ class SignUp extends Component {
       lastName: "",
       email: "",
       password: "",
-      emailErr: "",
       signup: false,
-      errors: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onsubmitForm = this.onsubmitForm.bind(this);
@@ -100,16 +98,14 @@ class SignUp extends Component {
     }
   };
   render() {
-    const { emailErr } = this.state;
     return (
       <div
-        style={{ fontSize: 14, backgroundColor: "gainsboro", width: "75%" }}
+        style={{ fontSize: 16, backgroundColor: "	lightslategrey", width: "75%" }}
         className="justify-content-md-center">
-
         { this.state.signup && <Redirect to="/loginpage" />}
         <h1>WelCome to our SignUp Page</h1>
 
-        <Form onSubmit={this.onsubmitForm} style={{ backgroundColor: "lavender", width: "75%" }}>
+        <Form onSubmit={this.onsubmitForm} style={{ backgroundColor: "gainsboro", width: "75%" }}>
 
           <Form.Group controlId="formBasicFirstName">
             <Form.Label>FirstName</Form.Label>
@@ -123,9 +119,6 @@ class SignUp extends Component {
               value={this.state.firstName}
               onChange={this.onChange}
             />
-            <div style={{ fontSize: 14, color: "red" }}>
-              {this.state.firstNameError}
-            </div>
 
           </Form.Group>
           <Form.Group controlId="formBasicLastName">
@@ -140,9 +133,6 @@ class SignUp extends Component {
               value={this.state.lastName}
               onChange={this.onChange}
             />
-            <div style={{ fontSize: 14, color: "red" }}>
-              {this.state.lastNameError}
-            </div>
           </Form.Group>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
@@ -154,10 +144,6 @@ class SignUp extends Component {
               value={this.state.email}
               onChange={this.onChange}
             />
-            {
-              emailErr.length > 0 && <div style={{ color: "red" }}>
-              </div>
-            }
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
@@ -171,17 +157,14 @@ class SignUp extends Component {
               value={this.state.password}
               onChange={this.onChange}
             />
-            <div style={{ fontSize: 14, color: "red" }}>
-              {this.state.passwordError}
-            </div>
           </Form.Group>
           <Button type="submit" class="btn btn-success">SignUp</Button>
           <br />
           <br />
           <br />
-          <h6>
+          <h5>
             Already have an account?<Link to="/loginpage">Login Here</Link>
-          </h6>
+          </h5>
         </Form>
       </div >
     );
