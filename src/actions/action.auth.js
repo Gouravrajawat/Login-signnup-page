@@ -6,6 +6,8 @@ import {
   SIGNUP_FAILED,
 } from '../actions/action.types';
 
+
+
 export const signup = (name, email, password) => async (dispatch) => {
   const config = {
     header: {
@@ -31,7 +33,7 @@ export const signup = (name, email, password) => async (dispatch) => {
   }
 };
 
-export const login = (email, password) => async (dispatch) => {
+export const login = (email, password,) => async (dispatch) => {
   const config = {
     header: {
       'Content-Type': 'application/json',

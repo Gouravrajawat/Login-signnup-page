@@ -10,6 +10,8 @@ const LoginPage = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [Login, setLogin] = useState(false);
+  const TOKEN_KEY = 'jwt';
+  /*
   const [user, setUser] = React.useState({
     email: "",
     password: "",
@@ -37,9 +39,11 @@ const LoginPage = () => {
   const handleChange = (target) => {
     const name = target.name;
     const value = target.value;
+    setUser({ ...user, [name]: value });
     validate(name, value);
   };
-const submitForm = (e) => {
+  */
+  const submitForm = (e) => {
     e.preventDefault();
 
     axios
@@ -53,20 +57,20 @@ const submitForm = (e) => {
 
           localStorage.setItem('token', res.data.token);
           localStorage.setItem('email', res.data.email);
+          localStorage.setItem(TOKEN_KEY, 'TestLogin');
 
           setLogin(true);
         } else console.log(res.data);
       })
-      .catch((err) => alert(err));
+      .catch((err) =>
+        alert('user not found'));
   };
   return (
     <div
-      style={{ backgroundColor: "gainsboro", width: "75%" }}
+      style={{ backgroundColor: "darkgray", width: "75%" }}
       className="justify-content-md-center" >
       {Login && <Redirect to="/dashboard" />}
-      <>
       <h1>WelCome to our LOGIN Page</h1>
-    </>
 
       <Form action="" style={{ width: "70%" }} onSubmit={submitForm}>
         <Form.Group controlId="formBasicEmail">
@@ -74,6 +78,7 @@ const submitForm = (e) => {
           <Form.Control
             type="text"
             placeholder="Enter email"
+            required="required"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
@@ -81,18 +86,20 @@ const submitForm = (e) => {
         <Form.Group controlId="formBasicPassword">
           <Form.Label>Password</Form.Label>
           <Form.Control
-            type="text"
+            type="password"
             placeholder="Password"
+            required="required"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </Form.Group>
         <Button type="Submit">Login</Button>
         <br />
+        <br />
+        Dont have an account?<Link to="/">Create Account</Link>
       </Form>
-      <br />
-      Don't have an account?<Link to="/">Create Account</Link>
     </div>
   );
 };
+
 export default LoginPage;

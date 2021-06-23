@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { Redirect, withRouter } from "react-router-dom";
+import { Redirect, withRouter, Link } from "react-router-dom";
 import axios from 'axios'
 
 class SignUp extends Component {
@@ -12,7 +12,9 @@ class SignUp extends Component {
       lastName: "",
       email: "",
       password: "",
+      emailErr: "",
       signup: false,
+      errors: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onsubmitForm = this.onsubmitForm.bind(this);
@@ -20,6 +22,7 @@ class SignUp extends Component {
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
   }
+
   /*
   validate = (target, value) => {
     var newErr = "";
@@ -42,6 +45,28 @@ class SignUp extends Component {
     validate(name, value);
   };
   */
+  /*
+   formValidation = () => {
+     const { email, password } = this.state;
+     let isValid = true;
+     const errors = {};
+     if (!email) {
+       isValid = false;
+       errors["email"] = "Email id is required.";
+     }
+     else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
+ 
+       isValid = false;
+       errors["email"] = "Invalid email id";
+     }
+     if (password.trim().length < 8) {
+       errors.passwordLength = "password must be of length 8 or higher";
+       isValid = false;
+     }
+     this.setState({ errors });
+     return isValid;
+   }
+   */
 
   onsubmitForm = (e) => {
     e.preventDefault();
@@ -75,17 +100,16 @@ class SignUp extends Component {
     }
   };
   render() {
+    const { emailErr } = this.state;
     return (
       <div
-        style={{ fontSize: 14, backgroundColor: "dimgrey", width: "75%" }}
+        style={{ fontSize: 14, backgroundColor: "gainsboro", width: "75%" }}
         className="justify-content-md-center">
 
         { this.state.signup && <Redirect to="/loginpage" />}
-        <>
-          <h1>WelCome to our SignUp Page</h1>
-        </>
+        <h1>WelCome to our SignUp Page</h1>
 
-        <Form onSubmit={this.onsubmitForm} style={{ width: "75%" }}>
+        <Form onSubmit={this.onsubmitForm} style={{ backgroundColor: "lavender", width: "75%" }}>
 
           <Form.Group controlId="formBasicFirstName">
             <Form.Label>FirstName</Form.Label>
@@ -95,7 +119,7 @@ class SignUp extends Component {
               name="firstName"
               required="required"
               minlength="3"
-              maxlength="10"
+              maxlength="15"
               value={this.state.firstName}
               onChange={this.onChange}
             />
@@ -112,7 +136,7 @@ class SignUp extends Component {
               name="lastName"
               required="required"
               minlength="3"
-              maxlength="10"
+              maxlength="15"
               value={this.state.lastName}
               onChange={this.onChange}
             />
@@ -130,9 +154,10 @@ class SignUp extends Component {
               value={this.state.email}
               onChange={this.onChange}
             />
-            <div style={{ fontSize: 14, color: "red" }}>
-              {this.state.emailError}
-            </div>
+            {
+              emailErr.length > 0 && <div style={{ color: "red" }}>
+              </div>
+            }
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
@@ -141,6 +166,8 @@ class SignUp extends Component {
               placeholder="Password"
               name="password"
               required="required"
+              minlength="4"
+              maxlength="15"
               value={this.state.password}
               onChange={this.onChange}
             />
@@ -153,7 +180,7 @@ class SignUp extends Component {
           <br />
           <br />
           <h6>
-            <Button type="primary" onClick={() => this.props.history.push('/loginpage')}>Already have an account </Button>
+            Already have an account?<Link to="/loginpage">Login Here</Link>
           </h6>
         </Form>
       </div >
@@ -161,4 +188,4 @@ class SignUp extends Component {
   }
 }
 
-export default withRouter(SignUp);
+export default withRouter(SignUp)
