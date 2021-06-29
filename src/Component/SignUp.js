@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { Redirect, withRouter, Link } from "react-router-dom";
+import { withRouter, Link } from "react-router-dom";
 import axios from 'axios'
 
 class SignUp extends Component {
@@ -13,58 +13,126 @@ class SignUp extends Component {
       email: "",
       password: "",
       signup: false,
+      errors: {},
     };
     this.onChange = this.onChange.bind(this);
     this.onsubmitForm = this.onsubmitForm.bind(this);
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
+    if (this.validateForm())
+      console.log(this.state);
   }
+  validateForm() {
 
-  /*
-  validate = (target, value) => {
-    var newErr = "";
-    if (target === "email") {
-      var mailformat =
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-      if (value && !value.match(mailformat))
-        newErr = "Please enter valid email address!";
-      else if (!value) newErr = "Email required!";
+    let errors = {};
+
+    let formIsValid = true;
+
+    if (!this.state.firstName) {
+
+      formIsValid = false;
+
+      errors[""] = "Please enter your firstName.";
+
     }
-    if (target === "password") {
-      if (value && value.length < 6) newErr = "Password must be of length 6";
-      else if (!value) newErr = "Password required!";
+
+    if (typeof this.state.firstName !== "undefined") {
+
+      if (!this.state.firstName.match(/^[a-zA-Z ]*$/)) {
+
+        formIsValid = true;
+
+        errors["firstName"] = "Please enter alphabet characters only.";
+      }
+      else {
+        this.setState({
+          errors: "false"
+        });
+      }
+
+      if (!this.state.lastName) {
+
+        formIsValid = false;
+
+        errors[""] = "Please enter your lastName";
+
+      }
+
+      if (typeof this.state.lastName !== "undefined") {
+
+        if (!this.state.lastName.match(/^[a-zA-Z ]*$/)) {
+
+          formIsValid = true;
+
+          errors["lastName"] = "Please enter alphabet characters only";
+        }
+      }
+      else {
+        this.setState({
+          errors: ""
+        });
+      }
+      if (!this.state.email) {
+
+        formIsValid = false;
+
+        errors["email"] = "Please enter your email-ID";
+
+      }
+
+      if (typeof this.state.email !== "undefined") {
+
+        let pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+
+        if (!pattern.test(this.state.email)) {
+
+          formIsValid = true;
+
+          errors["email"] = "Please enter valid email-ID";
+
+        }
+
+      }
+      else {
+        this.setState({
+          errors: ""
+        });
+      }
+      if (!this.state.password) {
+
+        formIsValid = false;
+
+        errors["password"] = "Please enter your password";
+
+      }
+
+      if (typeof this.state.password !== "undefined") {
+
+        if (!this.state.password.match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
+
+          formIsValid = false;
+
+          errors["password"] = "Please enter secure and strong password";
+
+        }
+
+      }
+      else {
+        this.setState({
+          errors: ""
+        });
+      }
+
+      this.setState({
+        errors: errors,
+
+      });
+
+      return formIsValid;
+
     }
   };
-  handleChange = (target) => {
-    const name = target.name;
-    const value = target.value;
-    setUser({ ...user, [name]: value });
-    validate(name, value);
-  };
-  */
-  /*
-   formValidation = () => {
-     const { email, password } = this.state;
-     let isValid = true;
-     const errors = {};
-     if (!email) {
-       isValid = false;
-       errors["email"] = "Email id is required.";
-     }
-     else if (!(/^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(email))) {
- 
-       isValid = false;
-       errors["email"] = "Invalid email id";
-     }
-     if (password.trim().length < 8) {
-       errors.passwordLength = "password must be of length 8 or higher";
-       isValid = false;
-     }
-     this.setState({ errors });
-     return isValid;
-   }
-   */
 
   onsubmitForm = (e) => {
     e.preventDefault();
@@ -90,11 +158,11 @@ class SignUp extends Component {
             this.setState({
               signup: true,
             });
-
+            this.props.history.push("/loginpage")
           } else console.log(res.data);
         })
         .catch((err) =>
-          alert(err));
+          console.log(err));
     }
   };
   render() {
@@ -102,7 +170,6 @@ class SignUp extends Component {
       <div
         style={{ fontSize: 16, backgroundColor: "	lightslategrey", width: "75%" }}
         className="justify-content-md-center">
-        { this.state.signup && <Redirect to="/loginpage" />}
         <h1>WelCome to our SignUp Page</h1>
 
         <Form onSubmit={this.onsubmitForm} style={{ backgroundColor: "gainsboro", width: "75%" }}>
@@ -119,7 +186,7 @@ class SignUp extends Component {
               value={this.state.firstName}
               onChange={this.onChange}
             />
-
+            <div className="text-danger">{this.state.errors.firstName}</div>
           </Form.Group>
           <Form.Group controlId="formBasicLastName">
             <Form.Label>LastName</Form.Label>
@@ -133,6 +200,7 @@ class SignUp extends Component {
               value={this.state.lastName}
               onChange={this.onChange}
             />
+            <div className="text-danger">{this.state.errors.lastName}</div>
           </Form.Group>
           <Form.Group controlId="formBasicEmail">
             <Form.Label>Email</Form.Label>
@@ -144,6 +212,7 @@ class SignUp extends Component {
               value={this.state.email}
               onChange={this.onChange}
             />
+            <div className="text-danger">{this.state.errors.email}</div>
           </Form.Group>
           <Form.Group controlId="formBasicPassword">
             <Form.Label>Password</Form.Label>
@@ -157,8 +226,14 @@ class SignUp extends Component {
               value={this.state.password}
               onChange={this.onChange}
             />
+            <div className="text-danger">{this.state.errors.password}</div>
           </Form.Group>
-          <Button type="submit" class="btn btn-success">SignUp</Button>
+          <Button type="submit" class="btn btn-success"
+            disabled={
+              !(this.state.errors.firstName === "" && this.state.errors.lastName === "" && this.state.errors.email === "" && this.state.errors.password === "")
+            }
+            onClick={(e) => this.onsubmitForm(e)}
+          >SignUp</Button>
           <br />
           <br />
           <br />

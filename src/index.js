@@ -14,3 +14,31 @@ ReactDOM.render(
 );
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+/*
+function app([loaded]) {
+  if (!loaded) {
+    return null;
+  }
+  return <div>Hello</div>
+}
+const rootElement = document.getElementById("root");
+ReactDOM.render(<App />, rootElement);
+*/
+
+

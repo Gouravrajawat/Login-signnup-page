@@ -1,10 +1,9 @@
 import React, { useState } from "react";
 import { Form } from "react-bootstrap";
 import { Button } from "react-bootstrap";
-import { Link, Redirect } from "react-router-dom";
+import { Link, Redirect, withRouter } from "react-router-dom";
 import "bootstrap/dist/css/bootstrap.min.css";
-
-import axios from 'axios'
+import axios from 'axios';
 
 const LoginPage = () => {
   const [email, setEmail] = useState("");
@@ -12,40 +11,65 @@ const LoginPage = () => {
   const [Login, setLogin] = useState(false);
   const TOKEN_KEY = 'jwt';
   /*
-  const [user, setUser] = React.useState({
-    email: "",
-    password: "",
-  });
-  const [err, setErr] = useState({
-    email: " ",
-    password: " ",
-  });
-
-  const validate = (target, value) => {
-    var newErr = "";
-    if (target === "email") {
-      var mailformat =
-        /^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$/;
-      if (value && !value.match(mailformat))
-        newErr = "Please enter valid email address!";
-      else if (!value) newErr = "Email required!";
+    const validateForm = () => {
+  
+      let errors = {};
+  
+      let formIsValid = true;
+  
+      if (!this.state.email) {
+  
+        formIsValid = false;
+  
+        errors["email"] = "*Please enter your email-ID.";
+  
+      }
+  
+      if (typeof this.state.email !== "undefined") {
+  
+  
+        let pattern = new RegExp(/^(("[\w-\s]+")|([\w-]+(?:\.[\w-]+)*)|("[\w-\s]+")([\w-]+(?:\.[\w-]+)*))(@((?:[\w-]+\.)*\w[\w-]{0,66})\.([a-z]{2,6}(?:\.[a-z]{2})?)$)|(@\[?((25[0-5]\.|2[0-4][0-9]\.|1[0-9]{2}\.|[0-9]{1,2}\.))((25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\.){2}(25[0-5]|2[0-4][0-9]|1[0-9]{2}|[0-9]{1,2})\]?$)/i);
+  
+        if (!pattern.test(this.state.email)) {
+  
+          formIsValid = false;
+  
+          errors["email"] = "Please enter valid email-ID";
+  
+        }
+      }
+  
+      if (!this.state.password) {
+  
+        formIsValid = false;
+  
+        errors["password"] = "*Please enter your password.";
+  
+      }
+      if (typeof this.state.password !== "undefined") {
+  
+        if (!this.state.password.match(/^.*(?=.{8,})(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%&]).*$/)) {
+  
+          formIsValid = false;
+  
+          errors["password"] = "*Please enter secure and strong password.";
+  
+        }
+      }
+      this.setState({
+  
+        errors: errors
+  
+      });
+  
+      return formIsValid;
     }
-    if (target === "password") {
-      if (value && value.length < 6) newErr = "Password must be of length 6";
-      else if (!value) newErr = "Password required!";
-    }
-    setErr({ ...err, [target]: newErr });
-  };
-  const handleChange = (target) => {
-    const name = target.name;
-    const value = target.value;
-    setUser({ ...user, [name]: value });
-    validate(name, value);
-  };
-  */
+    */
   const submitForm = (e) => {
+    // debugger
     e.preventDefault();
-
+    //  if (this.validateForm(this.setState)) {
+    //    console.log(this.state);
     axios
       .post("http://localhost:8080/api/user/login", {
         email: email,
@@ -64,11 +88,11 @@ const LoginPage = () => {
         } else console.log(res.data);
       })
       .catch((err) =>
-        alert('user not found'));
+        console.log('user not found'));
   };
   return (
     <div
-      style={{ fontSize: 16, backgroundColor: "gray", width: "75%", padding: "12px" }}
+      style={{ fontSize: 16, backgroundColor: "gray", width: "75%" }}
       className="justify-content-md-center" >
       {Login && <Redirect to="/dashboard" />}
       <h1>WelCome to our LOGIN Page</h1>
@@ -93,14 +117,15 @@ const LoginPage = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-        </Form.Group>
+
+        </Form.Group >
         <Button type="Submit">Login</Button>
         <br />
         <br />
-        Dont have an account?<Link to="/">Create Account</Link>
-      </Form>
-    </div>
+Dont have an account ? <Link to="/">Create Account</Link>
+      </Form >
+    </div >
   );
-};
+}
 
-export default LoginPage;
+export default withRouter(LoginPage);
