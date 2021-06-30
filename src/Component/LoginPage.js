@@ -10,7 +10,7 @@ const LoginPage = () => {
   const [password, setPassword] = useState("");
   const [Login, setLogin] = useState(false);
   const TOKEN_KEY = 'jwt';
-  /*
+
     const validateForm = () => {
   
       let errors = {};
@@ -64,12 +64,11 @@ const LoginPage = () => {
   
       return formIsValid;
     }
-    */
+    
   const submitForm = (e) => {
     // debugger
     e.preventDefault();
-    //  if (this.validateForm(this.setState)) {
-    //    console.log(this.state);
+    if(validateForm()){
     axios
       .post("http://localhost:8080/api/user/login", {
         email: email,
@@ -89,6 +88,7 @@ const LoginPage = () => {
       })
       .catch((err) =>
         console.log('user not found'));
+    }
   };
   return (
     <div

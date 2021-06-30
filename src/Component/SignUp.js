@@ -20,13 +20,11 @@ class SignUp extends Component {
   }
   onChange(e) {
     this.setState({ [e.target.name]: e.target.value });
-    if (this.validateForm())
-      console.log(this.state);
   }
+
   validateForm() {
 
-    let errors = {};
-
+    let errors = {}
     let formIsValid = true;
 
     if (!this.state.firstName) {
@@ -125,8 +123,8 @@ class SignUp extends Component {
       }
 
       this.setState({
+        ...this.state,
         errors: errors,
-
       });
 
       return formIsValid;
@@ -136,13 +134,9 @@ class SignUp extends Component {
 
   onsubmitForm = (e) => {
     e.preventDefault();
+    if(this.validateForm()){
     const { firstName, lastName, email, password } = this.state;
-    if (
-      firstName !== "" &&
-      lastName !== "" &&
-      email !== "" &&
-      password !== ""
-    ) {
+
       var newUser =
       {
         firstName: firstName,
@@ -163,7 +157,7 @@ class SignUp extends Component {
         })
         .catch((err) =>
           console.log(err));
-    }
+      }
   };
   render() {
     return (
@@ -229,9 +223,6 @@ class SignUp extends Component {
             <div className="text-danger">{this.state.errors.password}</div>
           </Form.Group>
           <Button type="submit" class="btn btn-success"
-            disabled={
-              !(this.state.errors.firstName === "" && this.state.errors.lastName === "" && this.state.errors.email === "" && this.state.errors.password === "")
-            }
             onClick={(e) => this.onsubmitForm(e)}
           >SignUp</Button>
           <br />
